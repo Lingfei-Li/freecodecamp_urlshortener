@@ -12,7 +12,6 @@ app.set('port', (process.env.PORT || 1234));
 const MONGO_URL = "mongodb://lingfei:yamaxun1121008@ds161175.mlab.com:61175/lingfei_freecodecamp";
 const SITE_URL = "https://lingfei-urlshortener.herokuapp.com/";
 
-// uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,20 +33,26 @@ app.get('/url', (req, res) => {
 
 app.get('/new/:url*', (req, res) => {
     var original_url = req.url.split('/').slice(2).join('/');
-    mongo.connect(MONGO_URL, (err, db) => {
-        var collection = db.collection('urlshortener');
-        var urlId = Math.floor(Math.random()*10000);
-        var obj = {
-            original_url,
-            short_url: SITE_URL + urlId
-        };
-        collection.insert(obj, (err, data)=>{
-            if(err) throw err;
-            console.log("success: " + JSON.stringify(obj));
-            res.send("success: " + JSON.stringify(obj));
-            db.close();
+    if(!original_url.startsWith('http://') && !original_url.startsWith('https://')) {
+        res.writeHead(400, {'Content-Type':'text/html'});
+        res.end("<h2>Invalid URL. http:// or https:// is needed for the given URL</h2>");
+    }
+    else {
+        mongo.connect(MONGO_URL, (err, db) => {
+            var collection = db.collection('urlshortener');
+            var urlId = Math.floor(Math.random()*10000);
+            var obj = {
+                original_url,
+                short_url: SITE_URL + urlId
+            };
+            collection.insert(obj, (err, data)=>{
+                if(err) throw err;
+                console.log("success: " + JSON.stringify(obj));
+                res.send("success: " + JSON.stringify(obj));
+                db.close();
+            });
         });
-    });
+    }
 });
 
 app.get('/:url', (req, res) => {

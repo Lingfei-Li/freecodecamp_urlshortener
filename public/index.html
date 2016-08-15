@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timestamp</title>
+
+    <!--Bootstrap-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cosmo/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <!--Bootswatch-->
+    <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1> URL Shortening Microservice </h1>
+
+    <blockquote style="display: inline-block;">
+        <h3>User Stories:</h3>
+        <ol>
+            <li>
+                I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.
+            </li>
+            <li>
+                If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.
+            </li>
+            <li>
+                When I visit that shortened URL, it will redirect me to my original link.
+            </li>
+        </ol>
+    </blockquote>
+
+    <div>
+        <p>Example of usage - shortening http://www.google.com: </p>
+        <ul>
+            <li>
+                Goto <code> https://lingfei-urlshortener.herokuapp.com/new/http://www.google.com </code>. This will create a new shortened URL.
+            </li>
+            <li>
+                You will receive a JSON string like <code>success: {"original_url":"http://google.com","short_url":"https://lingfei-urlshortener.herokuapp.com/6367","_id":"57b13a8cc6e0610003dc912f"}</code>
+            </li>
+            <li>
+                Notice the "short_url" field in the response. Goto that URL: <code> https://lingfei-urlshortener.herokuapp.com/6367" </code>
+            </li>
+        </ul>
+
+    </div>
+
+
+
+</div>
+
+</body>
+</html>
